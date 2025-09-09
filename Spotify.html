@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Homepage</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            color: #fff;
+            background: #52c234;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #061700, #52c234);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #061700, #52c234); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+        .row-title {
+            text-align: left;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-left: 60px;
+            margin-bottom: 18px;
+            color: #52c234;
+            letter-spacing: 1px;
+        }
+        .album-list {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 24px;
+            padding: 0 40px 60px 40px;
+            overflow-x: auto;
+        }
+        .album-card {
+            background: rgba(30, 30, 30, 0.85);
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+            padding: 16px 10px 12px 10px;
+            width: 140px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex: 0 0 auto;
+        }
+        .album-card:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 8px 32px rgba(82,194,52,0.25);
+            background: rgba(49, 49, 49, 0.95);
+        }
+        .album-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(82,194,52,0.12);
+            border: 2px solid #52c234;
+            transition: border-color 0.2s;
+        }
+        .album-card:hover img {
+            border-color: #fff;
+        }
+        .album-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+            color: #52c234;
+        }
+        .album-card h5 {
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin: 0;
+            color: #ccc;
+        }
+        a {
+            text-decoration: none;
+        }
+        @media (max-width: 700px) {
+            .row-title {
+                margin-left: 18px;
+                font-size: 1.2rem;
+            }
+            .album-list {
+                flex-wrap: wrap;
+                gap: 18px;
+                padding: 0 10px 40px 10px;
+            }
+            .album-card {
+                width: 90vw;
+                max-width: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Heading -->
+    <h1>This is a Homepage for Spotify</h1>
+
+    <div class="row-title">Best of AR Rahman</div>
+    <div class="album-list">
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/6BJPcgCN37gDKtPh7gmJ3p?si=R4uKp6U1ShCJPFqxmmgnEA">
+                <img src="https://i.scdn.co/image/ab67616d00001e02fb2bce3c5716f9bd1f0aaad7" alt="">
+            </a>
+            <h3>Saathiya</h3>
+            <h5>2002</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/3RZxrS2dDZlbsYtMRM89v8?si=UVmMcIMzS-iGrW0DkDovrw"> 
+                <img src="https://i.scdn.co/image/ab67616d00001e0254e544672baa16145d67612b" alt="">
+            </a>
+            <h3>Rockstar</h3>
+            <h5>2011</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/2lORIs7BAIYVH7xxcXsUn7?si=dcqKDExBR0WzQRZDHWlgDw"> 
+                <img src="https://i.scdn.co/image/ab67616d00001e020a6413faed4599fdcbf15c37" alt="">
+            </a>
+            <h3>Roja</h3>
+            <h5>1994</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/7J5iE51Mk97Mf0BjjwYXUZ?si=wUTHJ4P4QdK7WbbJNpmGkQ"> 
+                <img src="https://i.scdn.co/image/ab67616d00001e02abf91851997179d195afab5f" alt="">
+            </a>
+            <h3>Jaane Tu.. Ya Jaane Na</h3>
+            <h5>2008</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/24C47633GRlozws7WBth7t?si=vNWiPqozQ2-7lvgCzvY5ug"> 
+                <img src="https://i.scdn.co/image/ab67616d00001e02a00249b8bf77312ec156dd4b" alt="">
+            </a>
+            <h3>Raanjhanaa</h3>
+            <h5>2013</h5>
+        </div>
+    </div>
+        <!-- Pink Floyd -->
+    <div class="row-title">Best of Pink Floyd</div>
+    <div class="album-list" id="pink-floyd-list">
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/2WT1pbYjLJciAR26yMebkH">
+                <img alt="The Dark Side of the Moon">
+            </a>
+            <h3>The Dark Side of the Moon</h3>
+            <h5>1973</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/5Dbax7G8SWrP9xyzkOvy2F">
+                <img alt="The Wall">
+            </a>
+            <h3>The Wall</h3>
+            <h5>1979</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/0bCAjiUamIFqKJsekOYuRw">
+                <img alt="Wish You Were Here">
+            </a>
+            <h3>Wish You Were Here</h3>
+            <h5>1975</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/3b4E89rxzZQ9zkhgKpj8N4">
+                <img alt="Animals">
+            </a>
+            <h3>Animals</h3>
+            <h5>1977</h5>
+        </div>
+
+        <div class="album-card">
+            <a href="https://open.spotify.com/album/468ZwCchVtzEbt9BHmXopb">
+                <img alt="Meddle">
+            </a>
+            <h3>Meddle</h3>
+            <h5>1971</h5>
+        </div>
+    </div>
+
+
+        <script>
+      // Auto-populate album art from Spotify oEmbed
+      (async () => {
+        const cards = document.querySelectorAll('.album-card a[href*="open.spotify.com/album"]');
+        for (const a of cards) {
+          try {
+            const oembedURL = `https://open.spotify.com/oembed?url=${encodeURIComponent(a.href)}`;
+            const res = await fetch(oembedURL, { mode: 'cors' });
+            if (!res.ok) continue;
+            const data = await res.json();
+            const img = a.querySelector('img') || a.parentElement.querySelector('img');
+            if (img && data.thumbnail_url) {
+              img.src = data.thumbnail_url;
+              img.width = 100; // keep your existing sizing behavior
+              img.height = 100;
+            }
+          } catch (e) {
+            // fail silently; cards still render with titles/links
+          }
+        }
+      })();
+    </script>
+
+</body>
+</html>
