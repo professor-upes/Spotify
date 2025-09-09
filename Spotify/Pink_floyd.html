@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pink Floyd | Spotify-style Artist Page (Static)</title>
+  <link rel="preconnect" href="https://i.imgur.com">
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --card:#161616;
+      --muted:#b3b3b3;
+      --accent:#1DB954; /* Spotify green */
+      --text:#fff;
+      --ring: rgba(29,185,84,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      color:var(--text);
+      background: linear-gradient(180deg,#1a1f1a 0%, #0b0b0b 18%, #0b0b0b 100%);
+    }
+
+    /* Top hero */
+    .hero{
+      position:relative;
+      min-height:42vh;
+      display:grid;
+      align-items:end;
+      padding:24px 6vw 28px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.0) 0%, rgba(0,0,0,.55) 62%, #0b0b0b 100%),
+        url("https://upload.wikimedia.org/wikipedia/commons/0/0b/Pink_Floyd_-_The_Dark_Side_of_the_Moon.png") center/cover no-repeat; /* prism vibe */
+      border-bottom:1px solid #151515;
+    }
+    .hero .crumbs{
+      font-size:.9rem; color:var(--muted); letter-spacing:.02em; margin-bottom:8px;
+    }
+    .hero h1{
+      font-size:clamp(2rem, 6vw, 5rem);
+      margin:4px 0 10px;
+      font-weight:800;
+      letter-spacing:.5px;
+    }
+    .hero .sub{
+      display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+      color:var(--muted);
+      margin: 6px 0 18px;
+      font-size: .95rem;
+    }
+    .pill{
+      border:1px solid #2a2a2a; background:#121212; color:#fff; padding:8px 14px; border-radius:999px; font-weight:600; text-decoration:none;
+    }
+    .pill--green{ background:var(--accent); border-color:var(--accent); color:#000; }
+    .actions{ display:flex; gap:12px; margin: 6px 0 8px; }
+
+    /* Section shell */
+    .section{
+      padding: 26px 6vw 8px;
+    }
+    .section h2{
+      margin: 0 0 18px; font-size:1.4rem; letter-spacing:.3px;
+    }
+
+    /* Popular list */
+    .popular{
+      display:grid; gap:10px;
+    }
+    .track{
+      display:grid;
+      grid-template-columns: 56px 1.2fr .8fr 100px;
+      gap:16px; align-items:center;
+      padding:10px 12px;
+      border-radius:12px;
+      background: transparent;
+      transition: background .15s, transform .15s, box-shadow .15s;
+    }
+    .track:hover{
+      background: #121212;
+      box-shadow: 0 0 0 1px #1c1c1c, 0 6px 24px rgba(0,0,0,.35);
+      transform: translateY(-1px);
+    }
+    .track img{
+      width:56px; height:56px; border-radius:6px; object-fit:cover;
+      box-shadow: 0 0 0 1px #2a2a2a;
+    }
+    .track a{
+      color:#fff; text-decoration:none; font-weight:600;
+    }
+    .track .album{ color:var(--muted); font-size:.95rem;}
+    .track .dur{ color:#cfcfcf; text-align:right; font-variant-numeric: tabular-nums; }
+
+    /* Album grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap:18px;
+    }
+    @media (max-width: 1100px){ .grid{ grid-template-columns: repeat(4,1fr);} }
+    @media (max-width: 900px){ .grid{ grid-template-columns: repeat(3,1fr);} }
+    @media (max-width: 680px){ .grid{ grid-template-columns: repeat(2,1fr);} }
+    @media (max-width: 420px){ .grid{ grid-template-columns: 1fr;} }
+
+    .card{
+      background: var(--card);
+      border:1px solid #1e1e1e;
+      border-radius:16px;
+      padding:14px;
+      transition: transform .15s, box-shadow .15s, border-color .15s;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      border-color:#2a2a2a;
+      box-shadow: 0 0 0 2px var(--ring), 0 10px 28px rgba(0,0,0,.4);
+    }
+    .card img{
+      width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:10px;
+      box-shadow: 0 0 0 1px #2a2a2a;
+    }
+    .card h3{
+      font-size:1rem; margin:10px 0 4px;
+    }
+    .card .meta{
+      color:var(--muted); font-size:.9rem;
+    }
+    .card a{ text-decoration:none; color:#fff; }
+
+    /* Artist grid (fans also like) */
+    .artist-tile img{ aspect-ratio:1/1; border-radius:999px; }
+
+    /* Footer spacer */
+    .spacer{ height:40px; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero / header -->
+  <header class="hero">
+    <div>
+      <div class="crumbs"><a href="https://open.spotify.com" class="pill">Home</a> / Artist</div>
+      <h1>Pink Floyd</h1>
+      <div class="sub">
+        <span>Legendary progressive rock band</span>
+        <span>•</span>
+        <a class="pill" href="https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9">Open in Spotify</a>
+      </div>
+      <div class="actions">
+        <a class="pill pill--green" href="https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9">Follow</a>
+        <a class="pill" href="#popular">Popular</a>
+        <a class="pill" href="#releases">Popular releases</a>
+        <a class="pill" href="#fans">Fans also like</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Popular tracks -->
+  <section id="popular" class="section">
+    <h2>Popular</h2>
+    <div class="popular">
+
+      <div class="track">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/14/Pink_Floyd_-_Wish_You_Were_Here.jpg" alt="Wish You Were Here cover">
+        <div><a href="https://open.spotify.com/track/6mFkJmJqdDVQ1REhVfGgd1">Wish You Were Here</a></div>
+        <div class="album">Wish You Were Here · 2011 Remaster</div>
+        <div class="dur">5:35</div>
+      </div>
+
+      <div class="track">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/13/PinkFloydWallCoverOriginalNoText.jpg" alt="The Wall cover">
+        <div><a href="https://open.spotify.com/track/5HNCy40Ni5BZJFw1TKzRsC">Comfortably Numb</a></div>
+        <div class="album">The Wall · 2011 Remaster</div>
+        <div class="dur">6:22</div>
+      </div>
+
+      <div class="track">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/13/PinkFloydWallCoverOriginalNoText.jpg" alt="The Wall cover">
+        <div><a href="https://open.spotify.com/track/7K6xMPtAjTuLPNlJMLf5bS">Another Brick in the Wall, Pt. 1</a></div>
+        <div class="album">The Wall · 2011 Remaster</div>
+        <div class="dur">3:21</div>
+      </div>
+
+      <div class="track">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png" alt="The Dark Side of the Moon cover">
+        <div><a href="https://open.spotify.com/track/3TO7bbrUKrOSPGRTB5MeCz">Time</a></div>
+        <div class="album">The Dark Side of the Moon</div>
+        <div class="dur">7:06</div>
+      </div>
+
+      <div class="track">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png" alt="The Dark Side of the Moon cover">
+        <div><a href="https://open.spotify.com/track/3TO7bbrUKrOSPGRTB5MeCz">Money</a></div>
+        <div class="album">The Dark Side of the Moon</div>
+        <div class="dur">6:22</div>
+      </div>
+
+      <div class="track">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/14/Pink_Floyd_-_Wish_You_Were_Here.jpg" alt="Wish You Were Here cover">
+        <div><a href="https://open.spotify.com/track/6mFkJmJqdDVQ1REhVfGgd1">Shine On You Crazy Diamond (Pts. 1–5)</a></div>
+        <div class="album">Wish You Were Here</div>
+        <div class="dur">13:32</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Popular releases -->
+  <section id="releases" class="section">
+    <h2>Popular releases</h2>
+    <div class="grid">
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/4LH4d3cOWNNsVw41Gqt2kv">
+          <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png" alt="Dark Side of the Moon cover">
+          <h3>The Dark Side of the Moon</h3>
+          <div class="meta">Album · 1973</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/3fhjs6PfsCRcBEbr6x5Mni">
+          <img src="https://upload.wikimedia.org/wikipedia/en/1/13/PinkFloydWallCoverOriginalNoText.jpg" alt="The Wall cover">
+          <h3>The Wall (2011 Remaster)</h3>
+          <div class="meta">Album · 1979</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/0bCAjiUamIFqKJsekOYuRw">
+          <img src="https://upload.wikimedia.org/wikipedia/en/1/14/Pink_Floyd_-_Wish_You_Were_Here.jpg" alt="Wish You Were Here cover">
+          <h3>Wish You Were Here</h3>
+          <div class="meta">Album · 1975</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/3b4E89rxzZQ9zkhgKpj8N4">
+          <img src="https://upload.wikimedia.org/wikipedia/en/7/74/Pink_Floyd-Animals-Frontal.jpg" alt="Animals cover">
+          <h3>Animals</h3>
+          <div class="meta">Album · 1977</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/1aW3aO3S9T9r2G2Vq6W2Yz">
+          <img src="https://upload.wikimedia.org/wikipedia/en/f/f0/Pink_Floyd_-_Meddle.png" alt="Meddle cover">
+          <h3>Meddle</h3>
+          <div class="meta">Album · 1971</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/5Dbax7G8SWrP9xyzkOvy2F">
+          <img src="https://upload.wikimedia.org/wikipedia/en/5/54/Pink_Floyd_-_The_Division_Bell.jpg" alt="The Division Bell cover">
+          <h3>The Division Bell</h3>
+          <div class="meta">Album · 1994</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/4hBTLmEjAORq94Z8Kcnr4F">
+          <img src="https://upload.wikimedia.org/wikipedia/en/8/8f/PinkFloyd-album-piperatthegatesofdawn_300.jpg" alt="The Piper at the Gates of Dawn cover">
+          <h3>The Piper at the Gates of Dawn</h3>
+          <div class="meta">Album · 1967</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="https://open.spotify.com/album/1ipVQZ4voJtfJxCNlR8lg4">
+          <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png" alt="DSotM 50th cover (themed)">
+          <h3>Dark Side of the Moon (50th Anniversary)</h3>
+          <div class="meta">Album · 2023</div>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Fans also like -->
+  <section id="fans" class="section">
+    <h2>Fans also like</h2>
+    <div class="grid">
+
+      <article class="card artist-tile">
+        <a href="https://open.spotify.com/artist/36QJpDe2go2KgaRleHCDTp">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Led_Zeppelin_logo.png" alt="Led Zeppelin">
+          <h3>Led Zeppelin</h3>
+          <div class="meta">Artist</div>
+        </a>
+      </article>
+
+      <article class="card artist-tile">
+        <a href="https://open.spotify.com/artist/22WZ7M8sxp5THdruNY3gXt">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/The_Doors-logo.svg" alt="The Doors">
+          <h3>The Doors</h3>
+          <div class="meta">Artist</div>
+        </a>
+      </article>
+
+      <article class="card artist-tile">
+        <a href="https://open.spotify.com/artist/5M52tdBnJaKSvOpJGz8mfZ">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/King_Crimson_%28Logo%29.svg" alt="King Crimson">
+          <h3>King Crimson</h3>
+          <div class="meta">Artist</div>
+        </a>
+      </article>
+
+      <article class="card artist-tile">
+        <a href="https://open.spotify.com/artist/3CkvROUTQ6nRi9yQOcsB50">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Genesis_band_logo.svg" alt="Genesis">
+          <h3>Genesis</h3>
+          <div class="meta">Artist</div>
+        </a>
+      </article>
+
+      <article class="card artist-tile">
+        <a href="https://open.spotify.com/artist/7AC976RDJzL2asmZuz7qil">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Yes_logo.svg" alt="Yes">
+          <h3>Yes</h3>
+          <div class="meta">Artist</div>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="spacer"></div>
+</body>
+</html>
